@@ -10,12 +10,27 @@
     <alerts_log>yes</alerts_log>
     <logall>no</logall>
     <logall_json>no</logall_json>
-    <email_notification>no</email_notification>
-    <smtp_server>smtp.example.wazuh.com</smtp_server>
-    <email_from>ossecm@example.wazuh.com</email_from>
-    <email_to>recipient@example.wazuh.com</email_to>
-    <email_maxperhour>12</email_maxperhour>
+    <% if p("wazuh_agent.email.enabled") %>
+    <email_notification><%= p("wazuh_agent.email.enabled") %></email_notification>
+    <smtp_server><%= p("wazuh_agent.email.smtp_server") %></smtp_server>
+    <email_from><%= p("wazuh_agent.email.from_email") %></email_from>
+    <email_to><%= p("wazuh_agent.email.to_email") %></email_to>
+    <email_maxperhour><%= p("wazuh_agent.email.max_per_hour") %></email_maxperhour>
+    <% end %>
   </global>
+
+  <client>
+    <server>
+      <address><%= link('wazuh_properties').p("wazuh_server_ip") %></address>
+    </server>
+    <config-profile>Linux</config-profile>
+  </client>
+
+  <client_buffer>
+    <disabled>no</disabled>
+    <queue_size>5000</queue_size>
+    <events_per_second>500</events_per_second>
+  </client_buffer>
 
   <alerts>
     <log_alert_level>3</log_alert_level>
@@ -36,17 +51,17 @@
 
   <!-- Policy monitoring -->
   <rootcheck>
-    <disabled>no</disabled>
+    <disabled><%= p("wazuh_agent.rootcheck.disabled") %></disabled>
 
     <!-- Frequency that rootcheck is executed - every 12 hours -->
     <frequency>43200</frequency>
 
-    <rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
-    <rootkit_trojans>/var/ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
+    <rootkit_files>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/rootkit_files.txt</rootkit_files>
+    <rootkit_trojans>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/rootkit_trojans.txt</rootkit_trojans>
 
-    <system_audit>/var/ossec/etc/shared/system_audit_rcl.txt</system_audit>
-    <system_audit>/var/ossec/etc/shared/system_audit_ssh.txt</system_audit>
-    <system_audit>/var/ossec/etc/shared/cis_debian_linux_rcl.txt</system_audit>
+    <system_audit>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/system_audit_rcl.txt</system_audit>
+    <system_audit>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/system_audit_ssh.txt</system_audit>
+    <system_audit>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/cis_debian_linux_rcl.txt</system_audit>
 
     <skip_nfs>yes</skip_nfs>
   </rootcheck>

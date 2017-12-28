@@ -10,16 +10,18 @@
     <alerts_log>yes</alerts_log>
     <logall>no</logall>
     <logall_json>no</logall_json>
-    <email_notification>no</email_notification>
-    <smtp_server>smtp.example.wazuh.com</smtp_server>
-    <email_from>ossecm@example.wazuh.com</email_from>
-    <email_to>recipient@example.wazuh.com</email_to>
-    <email_maxperhour>12</email_maxperhour>
+    <% if p("wazuh_server.email.enabled") %>
+    <email_notification><%= p("wazuh_server.email.enabled") %></email_notification>
+    <smtp_server><%= p("wazuh_server.email.smtp_server") %></smtp_server>
+    <email_from><%= p("wazuh_server.email.from_email") %></email_from>
+    <email_to><%= p("wazuh_server.email.to_email") %></email_to>
+    <email_maxperhour><%= p("wazuh_server.email.max_per_hour") %></email_maxperhour>
+    <% end %>
   </global>
 
   <alerts>
-    <log_alert_level>3</log_alert_level>
-    <email_alert_level>12</email_alert_level>
+    <log_alert_level><%= p("wazuh_server.alerts.log_alert_level") %></log_alert_level>
+    <email_alert_level><%= p("wazuh_server.alerts.email_alert_level") %></email_alert_level>
   </alerts>
 
   <remote>
@@ -34,19 +36,27 @@
     <protocol>udp</protocol>
   </remote>
 
+  <% if p("wazuh_server.syslog_output.enabled") %>
+  <syslog_output>
+    <server><%= p("wazuh_server.syslog_output.endpoint") %></server>
+    <port><%= p("wazuh_server.syslog_output.port") %></port>
+    <level><%= p("wazuh_server.syslog_output.level") %></level>
+    <format>json</format>
+  </syslog_output>
+  <% end %>
   <!-- Policy monitoring -->
   <rootcheck>
-    <disabled>no</disabled>
+    <disabled><%= p("wazuh_server.rootcheck.disabled") %></disabled>
 
     <!-- Frequency that rootcheck is executed - every 12 hours -->
     <frequency>43200</frequency>
 
-    <rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
-    <rootkit_trojans>/var/ossec/etc/shared/rootkit_trojans.txt</rootkit_trojans>
+    <rootkit_files>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/rootkit_files.txt</rootkit_files>
+    <rootkit_trojans>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/rootkit_trojans.txt</rootkit_trojans>
 
-    <system_audit>/var/ossec/etc/shared/system_audit_rcl.txt</system_audit>
-    <system_audit>/var/ossec/etc/shared/system_audit_ssh.txt</system_audit>
-    <system_audit>/var/ossec/etc/shared/cis_debian_linux_rcl.txt</system_audit>
+    <system_audit>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/system_audit_rcl.txt</system_audit>
+    <system_audit>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/system_audit_ssh.txt</system_audit>
+    <system_audit>/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/etc/rootcheck/cis_debian_linux_rcl.txt</system_audit>
 
     <skip_nfs>yes</skip_nfs>
   </rootcheck>

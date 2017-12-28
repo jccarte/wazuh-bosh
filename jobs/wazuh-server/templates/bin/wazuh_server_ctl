@@ -46,7 +46,7 @@ case $2 in
 
 
   stop)
-    kill -9 $PIDFILE
+    kill $(ps aux | grep "$1" | awk '{print $2}')
     rm -rf $PIDFILE
 
     ;;

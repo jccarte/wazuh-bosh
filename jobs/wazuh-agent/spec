@@ -24,4 +24,26 @@ consumes:
     
 properties:
   wazuh_server_ip:
-    description: "Wazuh Manager IP"  
+    description: "Wazuh Manager IP"
+  wazuh_agent.rootcheck.disabled:
+    description: "Enable root checking"
+    default: no
+  wazuh_agent.email.enabled:
+    description: "Enable/Disable email notifications"
+    default: no
+  wazuh_agent.email.to_email:
+    description: "Email address to send email alerts"
+  wazuh_agent.email.from_email:
+    description: "FROM: email address for alerts"
+    default: "wazuh@example.com"
+  wazuh_agent.email.max_per_hour:
+    default: 12
+  wazuh_agent.email.smtp_server:
+    description: "SMTP server"
+    default: "smtp.example.com"
+  wazuh_agent.alerts.log_alert_level:
+    description: "Log alert level"
+    default: 3
+  wazuh_agent.alerts.email_alert_level:
+    description: "Email alert level"
+    default: 12

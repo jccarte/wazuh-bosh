@@ -13,3 +13,40 @@ templates:
   config/preloaded-vars.conf: config/preloaded-vars.conf
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+properties:
+  wazuh_server.rootcheck.disabled:
+    description: "Enable root checking"
+    default: no
+  wazuh_server.email.enabled:
+    description: "Enable/Disable email notifications"
+    default: no
+  wazuh_server.email.to_email:
+    description: "Email address to send email alerts"
+  wazuh_server.email.from_email:
+    description: "FROM: email address for alerts"
+    default: "wazuh@example.com"
+  wazuh_server.email.max_per_hour:
+    default: 12
+  wazuh_server.email.smtp_server:
+    description: "SMTP server"
+    default: "smtp.example.com"
+  wazuh_server.alerts.log_alert_level:
+    description: "Log alert level"
+    default: 3
+  wazuh_server.alerts.email_alert_level:
+    description: "Email alert level"
+    default: 12
+  wazuh_server.syslog_output.enabled:
+    description: "Enable syslog output"
+    default: false
+  wazuh_server.syslog_output.host:
+    description: "Syslog output endpoint"
+  wazuh_server.syslog_output.port:
+    description: "Syslog output port"
+  wazuh_server.syslog_output.level:
+    description: "Syslog output level"
+    default: 7
+  wazuh_server.enabled_rules:
+    description: "List of rule files that will be included in the server checks"
+    default: [ "rules_config.xml", "pam_rules.xml", "sshd_rules.xml", "syslog_rules.xml", "ossec_rules.xml", "attack_rules.xml", "local_rules.xml" ]
