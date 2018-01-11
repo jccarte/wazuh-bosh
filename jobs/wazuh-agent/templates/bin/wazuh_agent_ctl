@@ -38,7 +38,8 @@ case $2 in
 
 
   stop)
-    kill $(ps aux | grep "$1" | awk '{print $2}')
+    pid=$(cat $PIDFILE)
+    kill -9 $(ps aux | grep "$1" | awk '{print $2}')
     rm -rf $PIDFILE
 
     ;;

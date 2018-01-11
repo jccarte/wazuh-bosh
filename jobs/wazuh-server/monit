@@ -1,3 +1,11 @@
+<% if p('wazuh_server.filebeat.enabled') %>
+check process filebeat
+  with pidfile /var/vcap/sys/run/wazuh-server/filebeat.pid
+  start program "/var/vcap/jobs/wazuh-server/bin/filebeat_ctl start"
+  stop program "/var/vcap/jobs/wazuh-server/bin/filebeat_ctl stop"
+  group vcap
+<% end %>
+
 check process ossec-analysisd
   with pidfile /var/vcap/sys/run/wazuh-server/ossec-analysisd.pid
   start program "/var/vcap/jobs/wazuh-server/bin/wazuh_server_ctl ossec-analysisd start"

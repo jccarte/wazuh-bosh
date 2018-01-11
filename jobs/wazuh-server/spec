@@ -3,8 +3,11 @@ name: wazuh-server
 
 packages:
 - wazuh-server
+- filebeat
 
 templates:
+  bin/filebeat_ctl: bin/filebeat_ctl
+  config/filebeat.yml: config/filebeat.yml
   bin/pre-start: bin/pre-start
   bin/wazuh_server_ctl: bin/wazuh_server_ctl
   config/ossec.conf.erb: config/ossec.conf
@@ -15,6 +18,12 @@ templates:
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
 
 properties:
+  wazuh_server.filebeat.enabled:
+    description: "Enable Filebeat"
+    default: false
+  wazuh_server.filebeat.syslog_endpoint:
+    description: "syslog endpoint with port"
+    default: "localhost:5009"
   wazuh_server.rootcheck.disabled:
     description: "Enable root checking"
     default: no
