@@ -1,0 +1,18 @@
+<% if p('wazuh_server.filebeat.enabled') %>
+filebeat:
+ prospectors:
+  - input_type: log
+    paths:
+     - "/var/vcap/packages/wazuh-server/wazuh-server-3.0.0/logs/alerts/alerts.json"
+     # Note the above should point to the installed release, in this case 3.0.0
+    document_type: json
+    json.message_key: log
+    json.keys_under_root: true
+    json.overwrite_keys: true
+
+output:
+ logstash:
+   # The Logstash hosts
+   hosts: 
+     - <%= p('wazuh_server.filebeat.syslog_endpoint') %>
+<% end %>

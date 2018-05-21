@@ -17,6 +17,10 @@ templates:
   helpers/ctl_setup.sh: helpers/ctl_setup.sh
   helpers/ctl_utils.sh: helpers/ctl_utils.sh
 
+provides:
+- name: wazuh_properties
+  type: wazuh
+
 properties:
   wazuh_server.filebeat.enabled:
     description: "Enable Filebeat"

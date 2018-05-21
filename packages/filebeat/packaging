@@ -1,0 +1,17 @@
+echo "Starting packaging..."
+
+exec 2>&1
+set -e
+set -u
+set -x
+
+# Detect # of CPUs so make jobs can be parallelized
+CPUS=$(grep -c ^processor /proc/cpuinfo)
+export HOME=/var/vcap
+
+export FILEBEAT_VERSION="filebeat-6.1.1-linux-x86_64"
+
+echo "Untar into ${BOSH_INSTALL_TARGET}"
+
+tar xzvf filebeat/${FILEBEAT_VERSION}.tar.gz 
+mv $FILEBEAT_VERSION/* ${BOSH_INSTALL_TARGET}/.
