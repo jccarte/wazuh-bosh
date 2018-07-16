@@ -3,10 +3,17 @@ name: wazuh-server
 
 packages:
 - wazuh-server
+- filebeat
 
 templates:
+  bin/filebeat_ctl: bin/filebeat_ctl
+  bin/ingest_threat_intelligence.sh: bin/ingest_threat_intelligence.sh
   bin/pre-start: bin/pre-start
+  bin/drain.sh: bin/drain
   bin/wazuh_server_ctl: bin/wazuh_server_ctl
+  config/filebeat.yml: config/filebeat.yml
+  config/agent.conf: config/agent.conf
+  config/local_rules.xml: config/local_rules.xml
   config/ossec.conf.erb: config/ossec.conf
   config/sslmanager.cert: config/sslmanager.cert
   config/sslmanager.key: config/sslmanager.key
@@ -19,3 +26,9 @@ properties:
     description: SSL manager private key
   sslmanager_cert:
     description: SSL manager certificate
+  wazuh_server.filebeat.enabled:
+    description: "Enable Filebeat"
+    default: false
+  wazuh_server.filebeat.syslog_endpoint:
+    description: "syslog endpoint with port"
+    default: "localhost:5009"

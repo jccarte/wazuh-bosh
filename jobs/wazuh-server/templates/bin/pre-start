@@ -9,6 +9,8 @@ PACKAGE_DIR=/var/vcap/packages/wazuh-server
 WAZUH_VERSION=wazuh-server-3.2.1
 LOG_DIR=/var/vcap/sys/log/$JOB_NAME
 
+cp $JOB_DIR/bin/ingest_threat_intelligence.sh /etc/cron.hourly/.
+
 if [ ! -f $PACKAGE_DIR/$WAZUH_VERSION/bin/ossec-control ]; then
     cp $JOB_DIR/config/preloaded-vars.conf ${PACKAGE_DIR}/${WAZUH_VERSION}/source_code/etc/preloaded-vars.conf
     export USER_DIR=${PACKAGE_DIR}/${WAZUH_VERSION}
@@ -20,4 +22,10 @@ if [ ! -f $PACKAGE_DIR/$WAZUH_VERSION/bin/ossec-control ]; then
     fi
 fi
 
+cp /var/vcap/store/wazuh-server/client.keys ${PACKAGE_DIR}/${WAZUH_VERSION}/etc/client.keys
+cp $JOB_DIR/config/local_rules.xml ${PACKAGE_DIR}/${WAZUH_VERSION}/etc/rules/local_rules.xml
+cp $JOB_DIR/config/agent.conf ${PACKAGE_DIR}/${WAZUH_VERSION}/etc/shared/default/agent.conf
+cp $JOB_DIR/config/ossec.conf ${PACKAGE_DIR}/${WAZUH_VERSION}/etc/ossec.conf
+
+/bin/bash $JOB_DIR/bin/ingest_threat_intelligence.sh
 exit 0

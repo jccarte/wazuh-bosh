@@ -1,8 +1,9 @@
+filebeat/filebeat-6.1.1-linux-x86_64.tar.gz:
+  size: 11926779
+  sha: 050a87e5a8bfcebd5f0f49ec52e588c32cc3690c
 wazuh-agent/wazuh-agent-3.2.1.tar.gz:
-  size: 22181774
-  object_id: d7e3003f-deaf-4509-41ba-34d21e4bbdc8
-  sha: a08fdf48b5354edc0409e6fa17f780bfd0e2af27
+  size: 22122787
+  sha: b786c77a045322670d603d97f3feade59aede06e
 wazuh-server/wazuh-server-3.2.1.tar.gz:
-  size: 22181774
-  object_id: f0fd1ccb-2c68-4c91-62be-6cb9ca83b760
-  sha: a08fdf48b5354edc0409e6fa17f780bfd0e2af27
+  size: 22122787
+  sha: b786c77a045322670d603d97f3feade59aede06e

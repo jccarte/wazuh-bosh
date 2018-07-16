@@ -1,0 +1,20 @@
+<!-- User defined local rules -->
+<!-- Location: etc/rules -->
+<!-- Where:  Server side only -->
+
+<group name="attack,">
+    <rule id="100001" level="14">
+      <if_group>web|attack|attacks|syslog</if_group>
+      <list field="srcip" lookup="address_match_key">etc/lists/emerging-threat-list</list>
+      <description>Potential threat encountered system is communicating with known malicious host.</description>
+    </rule>
+</group>
+
+<group name="syscheck,secrets,">
+ <rule id="100002" level="12">
+    <match>ossec: output: 'secrets-check'</match>
+    <check_diff />
+    <description>Potential secrets found.</description>
+    <group>syscheck,secrets,git_secrets,</group>
+  </rule>
+</group>
